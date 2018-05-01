@@ -78,7 +78,7 @@ describe('/api/paintings', () => {
         });
     });
     describe('DELETE /api/paintings', () => {
-      test('should respond with 200 if there are no errors', () => {
+      test('should respond with 204 if there are no errors', () => {
         let paintingToTest = null;
         return createPaintingMock() 
           .then((painting) => {
@@ -99,6 +99,23 @@ describe('/api/paintings', () => {
             expect(response.status).toEqual(404);
           });
       });
+    });
+  });
+  describe('PUT /api/paintings', () => {
+    test('should update a painting and return a 200 status code', () => {
+      let paintingToUpdate = null;
+      return createPaintingMock()
+        .then((paintingMock) => {
+          paintingToUpdate = paintingMock;
+          return superagent.put(`${apiURL}/${paintingMock._id}`)
+            .send({ name: 'Testing one two three' });
+        })
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body.name).toEqual('Testing one two three');
+          expect(response.body.author).toEqual(paintingToUpdate.author);
+          expect(response.body._id).toEqual(paintingToUpdate._id.toString());
+        });
     });
   });
 });
