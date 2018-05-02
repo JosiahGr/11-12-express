@@ -1,6 +1,8 @@
 ## How to start server:
 
-start the server via the startServer() function from the server.js file.  This will allow us to connect to our MongoDB (process.env.MONGODB_URI).  Mongoose acts as the middleware that connects us from our computer to the MongoDB. 
+To start server please verify that you have installed mongoDB and mongoose then run the following code in your command line `npm run dbon` and `node main.js`
+
+This will allow us to connect to our MongoDB. Mongoose acts as the middleware that connects us from our computer to the MongoDB.
 
 ## Request endpoints:
 

@@ -78,18 +78,13 @@ describe('/api/paintings', () => {
         });
     });
     describe('DELETE /api/paintings', () => {
-      test('should respond with 200 if there are no errors', () => {
-        let paintingToTest = null;
+      test('should respond with 204 if there are no errors', () => {
         return createPaintingMock() 
           .then((painting) => {
-            paintingToTest = painting;
             return superagent.delete(`${apiURL}/${painting._id}`);
           })
           .then((response) => {
             expect(response.status).toEqual(204);
-            expect(response.body.dinoname).toEqual(paintingToTest.dinoname);
-            expect(response.body.dinocontent).toEqual(paintingToTest.dinocontent);
-            expect(response.body.dinomite).toEqual(paintingToTest.dinomite);
           });
       });
       test('should respond with 404 if there is no painting to be found', () => {
@@ -99,6 +94,23 @@ describe('/api/paintings', () => {
             expect(response.status).toEqual(404);
           });
       });
+    });
+  });
+  describe('PUT /api/paintings', () => {
+    test('should update a painting and return a 200 status code', () => {
+      let paintingToUpdate = null;
+      return createPaintingMock()
+        .then((paintingMock) => {
+          paintingToUpdate = paintingMock;
+          return superagent.put(`${apiURL}/${paintingMock._id}`)
+            .send({ name: 'Testing one two three' });
+        })
+        .then((response) => {
+          expect(response.status).toEqual(200);
+          expect(response.body.name).toEqual('Testing one two three');
+          expect(response.body.author).toEqual(paintingToUpdate.author);
+          expect(response.body._id).toEqual(paintingToUpdate._id.toString());
+        });
     });
   });
 });
