@@ -87,9 +87,9 @@ describe('/api/paintings', () => {
           })
           .then((response) => {
             expect(response.status).toEqual(204);
-            expect(response.body.dinoname).toEqual(paintingToTest.dinoname);
-            expect(response.body.dinocontent).toEqual(paintingToTest.dinocontent);
-            expect(response.body.dinomite).toEqual(paintingToTest.dinomite);
+            expect(response.body.artist).toEqual(paintingToTest.artist);
+            expect(response.body.style).toEqual(paintingToTest.style);
+            expect(response.body.era).toEqual(paintingToTest.era);
           });
       });
       test('should respond with 404 if there is no painting to be found', () => {
