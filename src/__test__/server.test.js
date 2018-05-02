@@ -79,17 +79,12 @@ describe('/api/paintings', () => {
     });
     describe('DELETE /api/paintings', () => {
       test('should respond with 204 if there are no errors', () => {
-        let paintingToTest = null;
         return createPaintingMock() 
           .then((painting) => {
-            paintingToTest = painting;
             return superagent.delete(`${apiURL}/${painting._id}`);
           })
           .then((response) => {
             expect(response.status).toEqual(204);
-            expect(response.body.artist).toEqual(paintingToTest.artist);
-            expect(response.body.style).toEqual(paintingToTest.style);
-            expect(response.body.era).toEqual(paintingToTest.era);
           });
       });
       test('should respond with 404 if there is no painting to be found', () => {
